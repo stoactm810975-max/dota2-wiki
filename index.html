@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOTA 2 百科全书 (7.41f) — 英雄立绘 · 技能数值 · 物品图鉴 · 胜率走势与出装攻略</title>
+  <meta name="description" content="DOTA 2 7.41f 版本中文百科全书（Wiki）：收录全部127位英雄高清头像与全身立绘、1-30级属性计算器、技能与天赋具体数值、269件商店与中立物品合成图鉴、各分段胜率走势、常见位置（1-5号位）与分阶段出装加点攻略。" />
+  <link rel="preconnect" href="https://cdn.steamstatic.com" crossorigin />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <!-- Sticky Navigation -->
+  <header class="top-nav">
+    <div class="nav-inner">
+      <div class="brand" id="brandHomeBtn" title="返回首页">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3.5 3.5h17v17h-17z" fill="none"/>
+            <path d="M4 4l16 16M4 7.5L16.5 20M7.5 4L20 16.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="17.5" cy="6.5" r="2.2" fill="#fff"/>
+            <circle cx="6.5" cy="17.5" r="2.2" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="brand-title">DOTA 2 WIKI</span>
+            <span class="patch-pill"><span class="patch-dot"></span>7.41f 最新版</span>
+          </div>
+          <span class="brand-sub">英雄立绘 · 技能精确数值 · 物品合成 · 天梯走势与出装攻略</span>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" role="tablist" aria-label="主导航">
+        <button class="nav-tab active" data-tab="heroes" role="tab" aria-selected="true">
+          <span>英雄图鉴</span>
+          <span class="tab-count" id="navHeroCount">127</span>
+        </button>
+        <button class="nav-tab" data-tab="items" role="tab" aria-selected="false">
+          <span>物品百科</span>
+          <span class="tab-count" id="navItemCount">269</span>
+        </button>
+        <button class="nav-tab" data-tab="meta" role="tab" aria-selected="false">
+          <span>胜率走势与位置榜</span>
+        </button>
+        <button class="nav-tab" data-tab="patch" role="tab" aria-selected="false">
+          <span>7.41f 版本日志</span>
+        </button>
+      </nav>
+
+      <div class="global-search-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          type="search"
+          id="globalSearchInput"
+          class="global-search-input"
+          placeholder="搜索英雄、技能、物品、缩写 (Ctrl+K)"
+          autocomplete="off"
+        />
+        <span class="search-kbd">/</span>
+        <div id="quickSearchDropdown" class="quick-search-dropdown"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Overview Banner -->
+  <section class="hero-banner">
+    <div class="banner-card">
+      <div class="banner-left">
+        <div class="banner-eyebrow">⚡ OFFICIAL DATAFEED &amp; OPENDOTA ANALYTICS · PATCH 7.41f</div>
+        <h2 class="banner-heading" id="bannerTitle">DOTA 2 7.41f 全英雄与物品数据中心</h2>
+        <p class="banner-desc" id="bannerDesc">
+          同步官方 7.41f 最新平衡性补丁数据：涵盖全部 127 位英雄的高清头像、动态/静态全身立绘、1~30级实时属性计算器、先天技能/阿哈利姆神杖/魔晶与天赋树精确数值、269 件商店与中立物品合成树，以及全分段胜率走势、1~5号位常见分路与实战出装攻略。
+        </p>
+      </div>
+      <div class="banner-stats">
+        <div class="stat-kpi">
+          <div class="stat-kpi-val" id="kpiPatchVer">7.41f</div>
+          <div class="stat-kpi-label">当前同步游戏版本</div>
+        </div>
+        <div class="stat-kpi">
+          <div class="stat-kpi-val" id="kpiHeroTotal">127</div>
+          <div class="stat-kpi-label">收录英雄 (含全身立绘)</div>
+        </div>
+        <div class="stat-kpi">
+          <div class="stat-kpi-val" id="kpiItemTotal">269</div>
+          <div class="stat-kpi-label">商店与中立物品</div>
+        </div>
+        <div class="stat-kpi">
+          <div class="stat-kpi-val" id="kpiPatchChanged">35 / 18</div>
+          <div class="stat-kpi-label">7.41f 调整英雄/物品</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Views -->
+  <main class="main-container">
+    <!-- 1. HEROES VIEW -->
+    <section id="view-heroes" class="view-section active">
+      <div class="filter-bar">
+        <div class="filter-group" id="heroAttrFilterGroup">
+          <span class="filter-label">主属性</span>
+          <button class="chip-btn active" data-attr="all_heroes">全部</button>
+          <button class="chip-btn" data-attr="0"><span class="attr-dot str"></span>力量</button>
+          <button class="chip-btn" data-attr="1"><span class="attr-dot agi"></span>敏捷</button>
+          <button class="chip-btn" data-attr="2"><span class="attr-dot int"></span>智力</button>
+          <button class="chip-btn" data-attr="3"><span class="attr-dot all"></span>全才</button>
+        </div>
+
+        <div class="filter-group" id="heroPosFilterGroup">
+          <span class="filter-label">常见位置</span>
+          <button class="chip-btn active" data-pos="all">全部位置</button>
+          <button class="chip-btn" data-pos="1">1号位 (优势路)</button>
+          <button class="chip-btn" data-pos="2">2号位 (中单)</button>
+          <button class="chip-btn" data-pos="3">3号位 (劣势路)</button>
+          <button class="chip-btn" data-pos="4">4号位 (半辅助)</button>
+          <button class="chip-btn" data-pos="5">5号位 (纯辅助)</button>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">攻击与筛选</span>
+          <select id="heroAttackSelect" class="select-input">
+            <option value="all">全部攻击方式</option>
+            <option value="1">⚔️ 近战英雄</option>
+            <option value="2">🏹 远程英雄</option>
+          </select>
+          <select id="heroRoleSelect" class="select-input">
+            <option value="all">全部英雄定位</option>
+            <option value="核心">核心 (Carry)</option>
+            <option value="辅助">辅助 (Support)</option>
+            <option value="爆发">爆发 (Nuker)</option>
+            <option value="控制">控制 (Disabler)</option>
+            <option value="先手">先手 (Initiator)</option>
+            <option value="耐久">耐久 (Durable)</option>
+            <option value="逃生">逃生 (Escape)</option>
+            <option value="推进">推进 (Pusher)</option>
+          </select>
+          <select id="heroSortSelect" class="select-input">
+            <option value="id">默认排序 (英雄ID)</option>
+            <option value="winrate_desc">📈 7.41f 胜率从高到低</option>
+            <option value="picks_desc">🔥 登场热度从高到低</option>
+            <option value="patch_741f">⚡ 7.41f 有改动英雄优先</option>
+            <option value="move_speed">👟 基础移速从高到低</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="heroesGrid" class="heroes-grid"></div>
+    </section>
+
+    <!-- 2. ITEMS VIEW -->
+    <section id="view-items" class="view-section">
+      <div class="filter-bar">
+        <div class="filter-group" id="itemCatFilterGroup">
+          <span class="filter-label">物品分类</span>
+          <button class="chip-btn active" data-cat="all">全部物品</button>
+          <button class="chip-btn" data-cat="shop">🛒 商店物品</button>
+          <button class="chip-btn" data-cat="consumable">🧪 消耗品</button>
+          <button class="chip-btn" data-cat="component">🧱 基础配件</button>
+          <button class="chip-btn" data-cat="common">⚒️ 常用合成</button>
+          <button class="chip-btn" data-cat="rare">🔮 辅助与法器</button>
+          <button class="chip-btn" data-cat="epic">⚔️ 神装与武器</button>
+          <button class="chip-btn" data-cat="artifact">👑 圣物与秘法</button>
+          <button class="chip-btn" data-cat="neutral">🌲 中立物品 (1~5级)</button>
+        </div>
+
+        <div class="filter-group">
+          <input
+            type="search"
+            id="itemLocalSearch"
+            class="select-input"
+            style="min-width:210px;"
+            placeholder="过滤物品名称、属性或效果..."
+          />
+          <select id="itemSortSelect" class="select-input">
+            <option value="category">按商店分类与等级分组</option>
+            <option value="cost_asc">💰 价格从低到高</option>
+            <option value="cost_desc">💎 价格从高到低</option>
+            <option value="patch_741f">⚡ 7.41f 改动物品优先</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="itemsContainer" class="items-category-stack"></div>
+    </section>
+
+    <!-- 3. META TRENDS & LEADERBOARD VIEW -->
+    <section id="view-meta" class="view-section">
+      <div class="filter-bar">
+        <div class="filter-group" id="metaBracketGroup">
+          <span class="filter-label">天梯分段视图</span>
+          <button class="chip-btn active" data-bracket="overall">全分段综合</button>
+          <button class="chip-btn" data-bracket="0">先锋</button>
+          <button class="chip-btn" data-bracket="1">卫士</button>
+          <button class="chip-btn" data-bracket="2">中军</button>
+          <button class="chip-btn" data-bracket="3">统帅</button>
+          <button class="chip-btn" data-bracket="4">传奇</button>
+          <button class="chip-btn" data-bracket="5">万古流芳</button>
+          <button class="chip-btn" data-bracket="6">超凡/冠绝</button>
+          <button class="chip-btn" data-bracket="turbo">🚀 加速模式</button>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">位置筛选</span>
+          <select id="metaPosFilter" class="select-input">
+            <option value="all">全部常见位置 (1~5号位)</option>
+            <option value="1">仅看主1号位 (优势路核心)</option>
+            <option value="2">仅看主2号位 (中单核心)</option>
+            <option value="3">仅看主3号位 (劣势路核心)</option>
+            <option value="4">仅看主4号位 (游走/半辅助)</option>
+            <option value="5">仅看主5号位 (纯辅助)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="meta-table-wrap">
+        <table class="meta-table">
+          <thead>
+            <tr>
+              <th data-sort="rank" style="width:60px;">排名</th>
+              <th data-sort="name">英雄</th>
+              <th data-sort="pos">常见主位置 (占比)</th>
+              <th data-sort="winrate">当前胜率 ⇅</th>
+              <th data-sort="picks">场次 / 热度 ⇅</th>
+              <th data-sort="kda">场均 K / D / A</th>
+              <th data-sort="gpm">场均 GPM / XPM ⇅</th>
+              <th>7.41f 热门核心出装 (点击查看数值)</th>
+            </tr>
+          </thead>
+          <tbody id="metaTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. PATCH 7.41f HUB VIEW -->
+    <section id="view-patch" class="view-section">
+      <div class="filter-bar">
+        <div class="filter-group" id="patchVersionGroup">
+          <span class="filter-label">选择 7.41 系列版本</span>
+          <button class="chip-btn active" data-patch="7.41f">🔥 7.41f (最新)</button>
+          <button class="chip-btn" data-patch="7.41e">7.41e</button>
+          <button class="chip-btn" data-patch="7.41d">7.41d</button>
+          <button class="chip-btn" data-patch="7.41c">7.41c</button>
+          <button class="chip-btn" data-patch="7.41b">7.41b</button>
+          <button class="chip-btn" data-patch="7.41a">7.41a</button>
+          <button class="chip-btn" data-patch="7.41">7.41 (大版本综述)</button>
+        </div>
+      </div>
+
+      <div id="patchHubContainer" style="display:flex;flex-direction:column;gap:24px;"></div>
+    </section>
+  </main>
+
+  <!-- Modal Backdrop for Hero & Item Detail -->
+  <div id="detailModalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-panel" id="detailModalPanel">
+      <button class="modal-close-btn" id="modalCloseBtn" title="关闭 (Esc)">✕</button>
+      <div id="modalContentRoot"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>
+      <strong>DOTA 2 中文百科全书 (Patch 7.41f)</strong> · 英雄立绘、技能数值、物品合成图鉴、天梯胜率走势与出装攻略
+    </p>
+    <p style="margin-top:6px;">
+      数据来源：Valve DOTA 2 官方 Datafeed (7.41f 简体中文) &amp; OpenDota Match Analytics · 适配 GitHub Pages 静态部署
+    </p>
+  </footer>
+
+  <!-- Pre-compiled 7.41f Dataset & App Controller -->
+  <script src="./data/wiki_data.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
